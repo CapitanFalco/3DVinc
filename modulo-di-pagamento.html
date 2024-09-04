@@ -1,0 +1,68 @@
+<!-- Modulo di pagamento -->
+<head>
+    <link rel="stylesheet" type="text/css" href="stylespagamento.css">
+  </head>
+<div class="payment-module">
+    <h2>Inserisci i tuoi dati per la consegna</h2>
+    <form id="customer-data-form" action="insert_data.php" method="post">
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+      </div>
+      <div class="form-group">
+        <label for="cognome">Cognome:</label>
+        <input type="text" id="cognome" name="cognome" required>
+      </div>
+      <div class="form-group">
+        <label for="indirizzo">Indirizzo di consegna:</label>
+        <input type="text" id="indirizzo" name="indirizzo" required>
+      </div>
+      <div class="form-group">
+        <label for="telefono">Numero di telefono:</label>
+        <input type="tel" id="telefono" name="telefono" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Prosegui al pagamento</button>
+    </form>
+  </div>
+  <!-- Bottone di pagamento -->
+  <div class="payment-button">
+    <button id="payment-button" style="display: none;" class="btn btn-success">
+      Acquista ora
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_xclick">
+        <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
+        <input type="hidden" name="item_name" value="PORTACHIAVI JUVENTUS">
+        <input type="hidden" name="item_number" value="0001">
+        <input type="hidden" name="amount" id="total_amount" value=""> <!-- dynamic total amount -->
+        <input type="hidden" name="currency_code" value="EUR">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+      </form>
+    </button>
+    <script>
+        const form = document.getElementById('customer-data-form');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault(); // Impedisce l'invio del form
+
+  // Esegue le azioni necessarie dopo la validazione dei dati
+  const nome = document.getElementById('nome').value;
+  const cognome = document.getElementById('cognome').value;
+  const indirizzo = document.getElementById('indirizzo').value;
+  const telefono = document.getElementById('telefono').value;
+  const email = document.getElementById('email').value;
+
+  // Verifica se tutti i campi sono stati compilati
+  if (nome && cognome && indirizzo && telefono && email) {
+    // Mostra il bottone di pagamento
+    document.getElementById('payment-button').style.display = 'block';
+  } else {
+    alert('Compila tutti i campi per proseguire');
+  }
+});
+    </script>
+  </div>
